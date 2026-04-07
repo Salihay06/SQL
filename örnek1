@@ -8,6 +8,8 @@ producerCNo INT,
 PRIMARY KEY(title,year)
 FOREIGN KEY(producerCNo) REFERENCES MOVIEEXEC(certNo)
 );
+
+
 CREATE TABLE MOVIESTAR(
 name VARCHAR(50),
 address VARCHAR(100),
@@ -15,6 +17,8 @@ gender CHAR,
 birthdate DATE,
 PRIMARY KEY(name)
 );
+
+
 CREATE TABLE STARSIN(
 movieTitle VARCHAR(100),
 movieYear DATE,
@@ -23,6 +27,8 @@ PRIMARY KEY(movieTitle,movieYear,starName)
 FOREIGN KEY(movieTitle) REFERENCES MOVIES(title)
 FOREIGN KEY(starName) REFERENCES MOVIESTAR(name)
 );
+
+
 CREATE TABLE MOVIEEXEC(
 name VARCHAR(50),
 address VARCHAR(100),
@@ -30,6 +36,8 @@ certNo INT,
 netWorth DATE,
 PRIMARY KEY(certNo)
 );
+
+
 CREATE TABLE STUDIO(
 name VARCHAR(50),
 address VARCHAR(100),
