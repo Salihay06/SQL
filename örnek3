@@ -1,0 +1,22 @@
+SELECT eSSN,salary FROM Employee;
+
+SELECT * FROM Employee WHERE deptNo = 4 OR deptNo5;
+
+SELECT eSSN, salary FROM Employee WHERE fName = 'Joyce' AND lName = 'English';
+
+SELECT SSN fName,lName,salary FROM Employee;
+
+SELECT DISTINCT salary FROM Employee;
+
+SELECT fName FROM Employee WHERE  fName LIKE'j____';
+
+SELECT fName FROM Employee WHERE fName LIKE 'A%';
+
+SELECT fName FROM Employee WHERE fName LIKE '%a';
+
+SELECT fName FROM Employee WHERE fName LIKE 'A%a'
+
+SELECT fName FROM Employee WHERE fName LIKE '%__a';
+
+DELETE FROM Employee WHERE eSSN='653298653';
+
