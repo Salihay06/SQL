@@ -38,6 +38,14 @@ PRIMARY KEY(certNo)
 );
 
 
+CREATE TABLE Company(
+    name VARCHAR(20) PRIMARY KEY,
+    country VARCHAR(20),
+    employees INT,
+    for_profit CHAR(1)
+);
+
+
 CREATE TABLE STUDIO(
 name VARCHAR(50),
 address VARCHAR(100),
