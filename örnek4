@@ -1,0 +1,26 @@
+SELECT fName,lName,salary
+FROM Employee WHERE salary BETWEEN 30000 AND 5000;
+
+SELECT fName ,lName,deptNo
+FROM Employee WHERE deptNo IN(1,4,5);
+
+SELECT dName FROM Department WHERE mngSSN IS NULL;
+
+SELECT fNAME,lName,salary FROM Employee ORDER BY salary DESC;
+
+SELECT SUM(salary), AVG(salary),COUNT(eSSN) FROM Employee;
+
+SELECT deptNo, COUNT(eSSN)
+from Employee GROUP BY deptNo;
+
+SELECT deptNo, COUNT(eSSN)
+FROM Employee GROUP BY deptNo
+HAVING COUNT (eSSN)>2;
+
+SELECT fName, lName, salary 
+FROM Employee 
+ORDER BY salary DESC 
+FETCH FIRST 3 ROWS ONLY;
+
+SELECT fName FROM Employee 
+WHERE salary > ANY (SELECT salary FROM Employee WHERE deptNo = 4);
