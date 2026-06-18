@@ -1,0 +1,111 @@
+select * from employee where deptNo=4 or deptNo =5;
+
+select eSSN,salary from employee where fNmae="Joyce" and IName="English";
+
+// as hesaplanan degerlerinin ekrandaki baslıgının ne olarak gözükeceğini belirtir
+//distinct tekrarları engeller
+// % bir veya birden faszla karakterin yerini tutabilir
+// _ sadece tek bir karakterin yerini tutar
+
+select fName,Iname from employee where fname LIKE "J%";
+
+
+delete from employee where essn= "45678976";
+--------------------------------------------------------------------------
+Yıllık maaşı 100.000 ile 200.000 arasında olan çalışanların adını getirelim.
+
+select fName FROM employee WHERE salary BETWEEN 10000 AND 20000
+--------------------------------------------------------------------
+Sadece 3 veya 5 numaralı departmanda çalışanların adını listele.
+
+SELECT fname from employee WHERE deptno IN(3,5);
+-------------------------------------------------------------------------
+Şirkette ek geliri (bonus) olmayan (boş olan) kişileri bul.
+
+SELECT fname FRom employee WHERE bonus IS NULL; 
+-------------------------------------------------------------------
+Çalışanları maaşlarına göre büyükten küçüğe doğru sıralayarak adlarını ve maaşlarını görelim
+
+Select salary from employee ORDER BY salary DESC;
+-----------------------------------------------------------------------
+
+Tabloda COUNT (sayma), SUM (toplama), AVG (ortalama) gibi fonksiyonlar kullandığında, SQL tüm satırları eritip tek bir satıra indirger.
+Eğer "Her departmanın kendi içinde" bu hesabı yapmasını istiyorsan, verileri GROUP BY ile gruplaman gerekir
+eger where kullanılıyorsa havıng kullanmak zorundasın
+--------------------------------------------------------------------------------------------
+Her departmanda kaç kişi çalışıyor?
+
+Select deptNo, COUNT(*) as calısansayısı FROM employee group by deptNo;
+---------------------------------------------------------------------
+Sadece çalışan sayısı 1'den fazla olan departmanları listele.
+
+select deptNo, Count(*) from employee group by deptNo havıng Count(")>1;
+-----------------------------------------------------------------
+                    Bir Sorgunun Yazım Sırası
+SELECT   -- 1. Hangi kolonları görmek istiyorsun?
+FROM     -- 2. Hangi tablodan alıyorsun?
+WHERE    -- 3. Ham satırlar için şartın ne? (LIKE, BETWEEN, IN, IS NULL)
+GROUP BY -- 4. Verileri neye göre gruplayacaksın?
+HAVING   -- 5. Gruplanmış/Özet veriler için şartın ne? (COUNT, AVG şartları)
+ORDER BY -- 6. En son ekranı nasıl sıralayalım? (ASC, DESC)
+----------------------------------------------------------------------------------
+fetch first belirli bir limit varsa kullanılır 
+Şirkette en yüksek maas alan ilk 3 kişinin maaşı 
+
+SELECT fname, salary FROM employee ORDER BY salary DESC
+FETCH FIRST 3 ROWS ONLY;
+-----------------------------------------------------------
+ANY, kelime anlamı gibi "herhangi biri" demektir. Yazdığın şart,
+alt sorgudan gelen sayıların en az bir tanesi için bile doğruysa satırı listeler.
+
+"Endüstri mühendislerinin herhangi birinden (en az birinden) daha fazla maaş alan bilgisayar mühendislerini bulun."
+
+select isim,maas FROM bilgisayar_muh WHERE maas > ANY (SELECT maas FROM endüstri_muh);
+----------------------------------------------------------------
+ALL, kelime anlamıyla "tamamı/hepsi" demektir. Yazdığın şartın doğru kabul edilmesi için,
+alt sorgudan gelen sayıların istisnasız hepsini birden sağlaması gerekir.
+
+"Endüstri mühendislerinin tamamından (hepsinden) daha fazla maaş alan bilgisayar mühendislerini bulun."
+select isim , maas FROM bilgisayar_muh WHERE maas> ALL (SELECT maas FROM endustri_muh);
+-------------------------------------------------------------
+SELECT MAX(salary) AS en_yüksek,
+       MİN(salary) AS en_düşük,
+from employee;
+------------------------------------------------------------
+               INNER JOİN
+2 kümenin ortak kesişim kümesi 
+
+SELECT * FROM users u 
+INNER JOIN orders o On u.id=o.user_id;
+----------------------------------------------------------
+                   LEFT JOIN
+kesişim ve sol kümeyi getirir sol taraftaki tablonu tğm degerlerini getiri
+
+SELECT * FROM users u
+LEFT JOIN orders o ON u.id= o.user_id;
+-------------------------------------------------------------
+                   right JOIN
+kesişim ve ssğ kümeyi getirir ssğ taraftaki tablonu tğm degerlerini getiri
+
+SELECT * FROM users u
+RIGHT JOIN orders o ON u.id= o.user_id;
+---------------------------------------------------------
+                      FULL OUTER JOIN 
+2 dairenin tamamı
+SELECT * FROM users u
+RIGHT JOIN orders o ON u.id= o.user_id;
+-----------------------------------------------------------
+LEFT ANTI-JOIN (Sadece Sola Ait Olanlar)
+
+SELECT * FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+WHERE o.user_id IS NULL; 
+----------------------------------------------------------
+CROSS JOIN (Kartezyen Çarpım / Tüm Kombinasyonlar)
+SELECT * FROM users u
+CROSS JOIN orders o;
+----------------------------------------------------
+
+
+
+
